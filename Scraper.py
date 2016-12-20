@@ -16,8 +16,9 @@ import requests
 
 # grabbing html
 url = 'http://www.dailyherald.com'
-response = requests.get(url, headers={'User-agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36'})
-soup = BeautifulSoup(response.content)
+response = requests.get(url, headers={'User-agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, '
+                                                    'like Gecko) Chrome/37.0.2062.120 Safari/537.36'})
+soup = BeautifulSoup(response.content,"html.parser")
 
 # initializing lists
 timeStamp = list()
@@ -37,8 +38,9 @@ for rows in tableEntries:
     summary.append(key2)
     link = summ.attrs['href']
     url2 = url + link
-    response2 = requests.get(url2, headers={'User-agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36'})
-    soup2 = BeautifulSoup(response2.content)
+    response2 = requests.get(url2, headers={'User-agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 ('
+                                                          'KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36'})
+    soup2 = BeautifulSoup(response2.content,"html.parser")
     pList = list()
     tableEntries2 = soup2.select('body div.articleText p')
     # Crawl one level deep
@@ -49,8 +51,8 @@ for rows in tableEntries:
 
 # Printing data
 fmt = '{:<10}{:<80}'
-for (a,b,c) in zip(timeStamp,summary,pageCrawls):
-    print(fmt.format(a,b))
+for (a, b, c) in zip(timeStamp, summary, pageCrawls):
+    print(fmt.format(a, b))
     for d in c:
         print(d)
     print("")
